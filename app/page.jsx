@@ -205,15 +205,15 @@ export default function Home() {
     }
   }
   return (
-    <div>
-      <div className=""></div>
+    <div className="text-center">
+      <div className="text-[1rem] md:text-[2.2rem] text-center w-full my-[1.5rem] md:my-[3rem] m-auto">Uncover the Role of Greenhouse Gases in Your Neighborhood</div>
       
-      <div className="flex flex-col md:flex-row gap-[1rem] w-full h-[540px]">
+      <div className="flex  flex-col md:flex-row gap-[1rem] w-full h-[540px]">
         <iframe
           src="https://climate.nasa.gov/earth-now/" // Add your NASA Earth Map URL
           width=""
           height=""
-          className="w-[100%] min-h-[70vh] md:w-[700px] md:h-[100%]"
+          className="w-[100%] min-h-[70vh] max-w-[100%] md:w-[700px] md:h-[100%]"
           style={{ border: 'none' }} // Correct usage of the style prop
           allowFullScreen // Corrected casing   className="max-h-[100%] md:max-h-[50vh]"
         ></iframe>
