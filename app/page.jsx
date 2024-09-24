@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Earth from "./map";
 import DoughnutPieChart from "./chart";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Doughnut, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
@@ -204,6 +204,46 @@ export default function Home() {
       // });
     }
   }
+
+  const [location, setLocation] = useState({ latitude: '', longitude: '' });
+  const [error, setError] = useState('');
+  const [countryName,setCountryName]=useState('');
+  useEffect(() => {  
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+          var temp='https://nominatim.openstreetmap.org/reverse?lat='+Number(position.coords.latitude)+'&lon='+Number(position.coords.longitude)+'&format=json'
+          fetch(temp)//`https://nominatim.openstreetmap.org/reverse?lat=${Number(location.latitude)}&lon=${Number(location.longitude)}&format=json`)
+          .then(res => res.json())
+          .then(res => {
+            if (res.error) {
+              console.error('Geocode Error:', res.error);
+              //alert('Unable to find the location for the given coordinates.');
+            } else {
+              setCountryName(res.display_name);
+              console.log('Country:', res.display_name);
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+
+          //fetch(`https://nominatim.openstreetmap.org/reverse?lat=${Number(location.latitude)}&lon=${Number(location.longitude)}&format=json`).then(res=>res.json())
+          //.then(res=>{setCountryName(res.display_name);console.log('contry ',res)});
+        },
+        (error) => {
+          setError('Location access denied or unavailable');
+        }
+      );
+    } else {
+      setError('Geolocation is not supported by your browser');
+    }
+  }, []);
+
   return (
     <div className="text-center">
       <div className="text-[1rem] md:text-[2.2rem] text-center w-full my-[1.5rem] md:my-[3rem] m-auto">Uncover the Role of Greenhouse Gases in Your Neighborhood</div>
@@ -228,6 +268,21 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+
+
+      <div>
+      <h1>Your Location</h1>
+      {error ? (
+        <p>{error}</p>
+      ) : (
+        <div>
+          <p>{countryName}</p>
+          <p>Latitude: {location.latitude}</p>
+          <p>Longitude: {location.longitude}</p>
+        </div>
+      )}
+    </div>
       {/* <iframe
         src="https://gemini.google.com/"
         width="100%"
