@@ -383,14 +383,16 @@ export default function Home() {
         </div> 
         */}
       {result1 && (
-        <div>
+        <div className="mt-[2rem]">
           <h3>Country: {result1.country}</h3>
           <p>Human Resources: {result1.humanResources}%</p>
           <p>Natural Resources: {result1.naturalResources}%</p>
         </div>
       )}
+
       {result1&&(
-        <div className="w-full mr-auto">
+        <div className="w-full mr-auto mt-[3rem]">
+          <div className="text-xl mb-[1rem]">Solutions:</div>
           <ul>
             <li>If anyone has a farm ,The main problem is cow manure so the solution is to feed the cows azola ferns  instead of feed so it will reduce the percentage of methane gas</li>
             <li>If anyone has a factor the solution is using bio filters</li>
