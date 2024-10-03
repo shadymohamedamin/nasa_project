@@ -5,6 +5,7 @@ import DoughnutPieChart from "./chart";
 import React, { useEffect, useState } from 'react';
 import { Doughnut, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import Link from "next/link";
 
 export default function Home() {
   const [dataJson,setDataJson]=useState([11, 80, 3, 6 ]);
@@ -391,7 +392,7 @@ export default function Home() {
       )}
 
       {result1&&(
-        <div className="w-full mr-auto mt-[3rem]">
+        <div className="w-full mr-auto mt-[3rem] mb-[2rem]">
           <div className="text-xl mb-[1rem]">Solutions:</div>
           <ul>
             <li>If anyone has a farm ,The main problem is cow manure so the solution is to feed the cows azola ferns  instead of feed so it will reduce the percentage of methane gas</li>
@@ -399,6 +400,14 @@ export default function Home() {
             <li>Car exhaust , the solution is to use electric vehicles</li>
           </ul>
         </div>
+      )}
+
+      {result1&&(<>
+        <Link href={'/researchers'}>
+          <button className="bg-blue-800 text-[#FFF] w-[7rem] h-[3rem] text-center rounded-[1rem] mb-[1rem]">Researchers</button>
+        </Link>
+        <div className="mb-[1rem]">for more solutions and awarenss</div>
+        </>
       )}
       {/* <iframe
         src="https://gemini.google.com/"
