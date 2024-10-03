@@ -389,7 +389,15 @@ export default function Home() {
           <p>Natural Resources: {result1.naturalResources}%</p>
         </div>
       )}
-    
+      {result1&&(
+        <div className="w-full mr-auto">
+          <ul>
+            <li>If anyone has a farm ,The main problem is cow manure so the solution is to feed the cows azola ferns  instead of feed so it will reduce the percentage of methane gas</li>
+            <li>If anyone has a factor the solution is using bio filters</li>
+            <li>Car exhaust , the solution is to use electric vehicles</li>
+          </ul>
+        </div>
+      )}
       {/* <iframe
         src="https://gemini.google.com/"
         width="100%"
