@@ -9,7 +9,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 export default function Home() {
   const [dataJson,setDataJson]=useState([11, 80, 3, 6 ]);
   const [country,setCountry]=useState('');
-
+  const [result1, setResult1] = useState(null);
   const result=[
         {
           "country": "Egypt",
@@ -185,9 +185,17 @@ export default function Home() {
       },
     ],
   };
+
   const handleSubmit=async()=>{
     const countryData = result.find(item => item.country.toLowerCase() === country.toLowerCase());
-    
+    const countryDataJson = countryResources.find(
+      (item) => item.country.toLowerCase() == country.toLowerCase()
+    );
+    if (countryDataJson) {
+      setResult1(countryDataJson);
+    } else {
+      //alert('Country not found');
+    }
     if (countryData) {
       // Prepare data for Chart.js
       const { CO2, N2O, CH4, others } = countryData.gases;
@@ -204,6 +212,101 @@ export default function Home() {
       // });
     }
   }
+
+  const [resources, setResources] = useState({ humanResources: 0, naturalResources: 0 });
+  
+  /*const handleSearch = () => {
+    const countryData = countryResources.find(
+      (item) => item.country.toLowerCase() === countryInput.toLowerCase()
+    );
+    if (countryData) {
+      setResult(countryData);
+    } else {
+      //alert('Country not found');
+    }
+  };*/
+  const countryResources = [
+  {
+    country: "Egypt",
+    humanResources: 95.6,
+    naturalResources: 4.4,
+  },
+  {
+    country: "United States",
+    humanResources: 58.4,
+    naturalResources: 1.6,
+  },
+  {
+    country: "China",
+    humanResources: 72.9,
+    naturalResources: 8.3,
+  },
+  {
+    country: "India",
+    humanResources: 88.4,
+    naturalResources: 6.1,
+  },
+  {
+    country: "Germany",
+    humanResources: 77.6,
+    naturalResources: 22.4,
+  },
+  {
+    country: "Brazil",
+    humanResources: 63.2,
+    naturalResources: 36.8,
+  },
+  {
+    country: "Russia",
+    humanResources: 61.9,
+    naturalResources: 38.1,
+  },
+  {
+    country: "Japan",
+    humanResources: 85.9,
+    naturalResources: 14.1,
+  },
+  {
+    country: "Canada",
+    humanResources: 72.1,
+    naturalResources: 27.9,
+  },
+  {
+    country: "United Kingdom",
+    humanResources: 79.6,
+    naturalResources: 20.4,
+  },
+  {
+    country: "Australia",
+    humanResources: 74.2,
+    naturalResources: 25.8,
+  },
+  {
+    country: "South Africa",
+    humanResources: 69.4,
+    naturalResources: 30.6,
+  },
+  {
+    country: "Mexico",
+    humanResources: 70.4,
+    naturalResources: 29.6,
+  },
+  {
+    country: "Indonesia",
+    humanResources: 76.2,
+    naturalResources: 23.8,
+  },
+  {
+    country: "Saudi Arabia",
+    humanResources: 66.2,
+    naturalResources: 33.8,
+  },
+  {
+    country: "Argentina",
+    humanResources: 71.8,
+    naturalResources: 28.2,
+  }
+];
 
   const [location, setLocation] = useState({ latitude: '', longitude: '' });
   const [error, setError] = useState('');
@@ -248,16 +351,16 @@ export default function Home() {
     <div className="text-center">
       <div className="text-[1rem] md:text-[2.2rem] text-center w-full my-[1.5rem] md:my-[3rem] m-auto">Uncover the Role of Greenhouse Gases in Your Neighborhood</div>
       
-      <div className="flex  flex-col md:flex-row gap-[1rem] w-full h-[540px]">
+      <div className="flex  flex-col md:flex-row gap-[1rem] w-full min-h-[540px]">
         <iframe
           src="https://climate.nasa.gov/earth-now/" // Add your NASA Earth Map URL
           width=""
           height=""
-          className="w-[100%] min-h-[70vh] max-w-[100%] md:w-[700px] md:h-[100%]"
+          className="w-[100%] min-h-[600px]  max-w-[100%] md:w-[700px] h-[100%]"
           style={{ border: 'none' }} // Correct usage of the style prop
           allowFullScreen // Corrected casing   className="max-h-[100%] md:max-h-[50vh]"
         ></iframe>
-        <div className="flex flex-col gap-[1rem] w-full md:w-[50%] h-[12rem] md:h-full">
+        <div className="flex flex-col gap-[1rem] w-full md:w-[50%] min-h-[12rem] md:h-full">
           <div className="flex flex-row items-center gap-[1rem]">
             <input value={country} onChange={(e)=>{setCountry(e.target.value)}} className="outline-none h-[3rem] w-[15rem] rounded-[1rem] border border-bink-500 m-[1rem] p-[0.6rem]" type="text" placeholder="Enter country" />
             <button onClick={handleSubmit} className="bg-blue-800 text-[#FFF] w-[12rem] h-[3rem] text-center rounded-[1rem]" type="submit">Get Emissions Data</button>
@@ -271,18 +374,22 @@ export default function Home() {
 
 
 
-      <div>
-      <h1>Your Location</h1>
-      {error ? (
-        <p>{error}</p>
-      ) : (
+      
+        {/*
+        <div className="w-full text-left">
+           <p className="w-full ml-auto my-[1rem] text-[1.5rem]">Your Location is:{' '+countryName}</p>
+           <p>Latitude: {location.latitude}</p>
+           <p>Longitude: {location.longitude}</p>
+        </div> 
+        */}
+      {result1 && (
         <div>
-          <p>{countryName}</p>
-          <p>Latitude: {location.latitude}</p>
-          <p>Longitude: {location.longitude}</p>
+          <h3>Country: {result1.country}</h3>
+          <p>Human Resources: {result1.humanResources}%</p>
+          <p>Natural Resources: {result1.naturalResources}%</p>
         </div>
       )}
-    </div>
+    
       {/* <iframe
         src="https://gemini.google.com/"
         width="100%"
