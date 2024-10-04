@@ -77,6 +77,8 @@ const Earth = () => {
 
 */
     ]
+
+    
   return (
   <div>
     <div className="text-xl m-[2rem] ">Researchers:</div>

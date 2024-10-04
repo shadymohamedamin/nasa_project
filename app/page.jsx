@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function Home() {
   const [dataJson,setDataJson]=useState([11, 80, 3, 6 ]);
-  const [country,setCountry]=useState('');
+  const [country,setCountry]=useState('egypt');
   const [result1, setResult1] = useState(null);
   const result=[
         {
@@ -394,14 +394,42 @@ export default function Home() {
       {result1&&(
         <div className="w-full mr-auto mt-[3rem] mb-[2rem]">
           <div className="text-xl mb-[1rem]">Solutions:</div>
-          <ul>
-            <li>If anyone has a farm ,The main problem is cow manure so the solution is to feed the cows azola ferns  instead of feed so it will reduce the percentage of methane gas</li>
-            <li>If anyone has a factor the solution is using bio filters</li>
-            <li>Car exhaust , the solution is to use electric vehicles</li>
-          </ul>
+          <div>
+            {/* <div className="flex flex-">
+              <img></img>
+              <p>If anyone has a farm ,The main problem is cow manure so the solution is to feed the cows azola ferns  instead of feed so it will reduce the percentage of methane gas</p>
+            </div> */}
+
+          <div className="flex my-[1.5rem] w-[90%] m-auto items-center  justify-between gap-[1rem]">
+            <p>If anyone has a farm ,The main problem is cow manure so the solution is to feed the cows azola ferns  instead of feed so it will reduce the percentage of methane gas</p>
+            <img src="first_ph.jpeg" className="sm:max-w-[500px] max-w-[200px] object-cover rounded-[2rem]"></img>
+          </div>
+          <div className="flex my-[1.5rem] w-[90%] m-auto items-center  justify-between gap-[1rem]">
+            <img src="second_ph.jpeg" className="sm:max-w-[500px] max-w-[200px] object-cover rounded-[2rem]"></img>
+            <p>If anyone has a factor the solution is using bio filters</p>
+          </div>
+          <div className="flex my-[1.5rem] w-[90%] m-auto items-center  justify-between gap-[1rem]">
+            <p>Car exhaust , the solution is to use electric vehicles</p>
+            <img src="third_ph.jpeg" className="sm:max-w-[500px] max-w-[200px]  object-cover rounded-[2rem]"></img>
+          </div>
+
+          </div>
         </div>
       )}
 
+          {/* <div className="flex my-[1.5rem] w-full items-center mx-[3rem] justify-between gap-[1rem]">
+            <p>If anyone has a farm ,The main problem is cow manure so the solution is to feed the cows azola ferns  instead of feed so it will reduce the percentage of methane gas</p>
+            <img src="first_ph.jpeg" className="w-full object-cover rounded-[2rem]"></img>
+          </div>
+          <div className="flex my-[1.5rem] w-full items-center mx-[3rem] justify-between gap-[1rem]">
+            <img src="first_ph.jpeg" className="w-full object-cover rounded-[2rem]"></img>
+            <p>If anyone has a factor the solution is using bio filters</p>
+          </div>
+          <div className="flex my-[1.5rem] w-full items-center mx-[3rem] justify-between gap-[1rem]">
+            <p>Car exhaust , the solution is to use electric vehicles</p>
+            <img src="first_ph.jpeg" className="w-full object-cover rounded-[2rem]"></img>
+          </div> */}
+            
       {result1&&(<>
         <Link href={'/researchers'}>
           <button className="bg-blue-800 text-[#FFF] w-[7rem] h-[3rem] text-center rounded-[1rem] mb-[1rem]">Researchers</button>
