@@ -469,8 +469,11 @@ const carbonData = [
  }, [country]); 
 
   return (
-    <div className="text-center">
-      <div className="text-[1rem] md:text-[2.2rem] text-center w-full my-[1.5rem] md:my-[3rem] m-auto">Uncover the Role of Greenhouse Gases in Your Neighborhood</div>
+    <div className="text-center w-full relative">
+      <div className="w-full  items-left float-left">
+        <Link href={'/login'} className="w-full mr-auto"><button className="bg-yellow-300 float-left p-2 m-[0.5rem]  mr-auto rounded-[8px]">Login</button></Link>
+      </div>
+      <div className="text-[1rem] md:text-[2.2rem] text-center w-full my-[1.5rem] md:my-[1rem] m-auto">Uncover the Role of Greenhouse Gases in Your Neighborhood</div>
       
       <div className="flex  flex-col md:flex-row gap-[1rem] w-full min-h-[540px]">
         <iframe
