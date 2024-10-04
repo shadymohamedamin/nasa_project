@@ -406,10 +406,10 @@ export default function Home() {
           </div>
           <div className="flex my-[1.5rem] w-[90%] m-auto items-center  justify-between gap-[1rem]">
             <img src="second_ph.jpeg" className="sm:max-w-[500px] max-w-[200px] object-cover rounded-[2rem]"></img>
-            <p>If anyone has a factor the solution is using bio filters</p>
+            <p>If anyone has a factory the solution is using bio filters</p>
           </div>
           <div className="flex my-[1.5rem] w-[90%] m-auto items-center  justify-between gap-[1rem]">
-            <p>Car exhaust , the solution is to use electric vehicles</p>
+            <p>Car exhaust emissions can be solved by either using catalytic converters or switching to electric vehicles</p>
             <img src="third_ph.jpeg" className="sm:max-w-[500px] max-w-[200px]  object-cover rounded-[2rem]"></img>
           </div>
 
