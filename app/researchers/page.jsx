@@ -78,11 +78,14 @@ const Earth = () => {
 */
     ]
 
-    
+
   return (
   <div>
-    <div className="text-xl m-[2rem] ">Researchers:</div>
-    {arr?.map((item,index)=><ol key={index}><li className="mx-[2rem] my-[0.5rem]">{item.title}:{' '+item.subtitle}</li></ol>)}
+    <div className="text-2xl m-[2rem] ">Researchers:</div>
+    {arr?.map((item,index)=><div key={index}>
+        <p className="mx-[2rem] text-xl my-[0.5rem]">{item.title}:{' '}</p>
+        <p className="mx-[3rem] my-[0.5rem]">{item.subtitle}</p>
+    </div>)}
   </div>
   );
 };
