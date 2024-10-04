@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Doughnut, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import Link from "next/link";
+import axios from "axios";
 
 export default function Home() {
   const [dataJson,setDataJson]=useState([11, 80, 3, 6 ]);
@@ -195,37 +196,15 @@ export default function Home() {
     if (countryDataJson) {
       setResult1(countryDataJson);
     } else {
-      //alert('Country not found');
     }
     if (countryData) {
-      // Prepare data for Chart.js
       const { CO2, N2O, CH4, others } = countryData.gases;
       setDataJson([CH4, CO2, others, N2O ])
-      // setChartData({
-      //   labels: ['CO2', 'N2O', 'CH4', 'Others'],
-      //   datasets: [
-      //     {
-      //       label: `Emissions in ${country}`,
-      //       data: [CO2, N2O, CH4, others],
-      //       backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(75, 192, 192, 0.6)'],
-      //     },
-      //   ],
-      // });
     }
   }
 
   const [resources, setResources] = useState({ humanResources: 0, naturalResources: 0 });
-  
-  /*const handleSearch = () => {
-    const countryData = countryResources.find(
-      (item) => item.country.toLowerCase() === countryInput.toLowerCase()
-    );
-    if (countryData) {
-      setResult(countryData);
-    } else {
-      //alert('Country not found');
-    }
-  };*/
+
   const countryResources = [
   {
     country: "Egypt",
@@ -309,6 +288,138 @@ export default function Home() {
   }
 ];
 
+
+const carbonData = [
+  {
+    country: "Egypt",
+    energyProduction: 70,
+    transportation: 12,
+    industry: 10,
+    agriculture: 5,
+    wasteManagement: 3,
+  },
+  {
+    country: "United States",
+    energyProduction: 65,
+    transportation: 28,
+    industry: 6,
+    agriculture: 0.7,
+    wasteManagement: 0.3,
+  },
+  {
+    country: "China",
+    energyProduction: 72,
+    transportation: 15,
+    industry: 10,
+    agriculture: 2,
+    wasteManagement: 1,
+  },
+  {
+    country: "India",
+    energyProduction: 70,
+    transportation: 14,
+    industry: 8,
+    agriculture: 6,
+    wasteManagement: 2,
+  },
+  {
+    country: "Germany",
+    energyProduction: 60,
+    transportation: 20,
+    industry: 15,
+    agriculture: 3,
+    wasteManagement: 2,
+  },
+  {
+    country: "Brazil",
+    energyProduction: 60,
+    transportation: 12,
+    industry: 15,
+    agriculture: 10,
+    wasteManagement: 3,
+  },
+  {
+    country: "Russia",
+    energyProduction: 67,
+    transportation: 15,
+    industry: 10,
+    agriculture: 4,
+    wasteManagement: 4,
+  },
+  {
+    country: "Japan",
+    energyProduction: 65,
+    transportation: 15,
+    industry: 15,
+    agriculture: 3,
+    wasteManagement: 2,
+  },
+  {
+    country: "Canada",
+    energyProduction: 70,
+    transportation: 15,
+    industry: 8,
+    agriculture: 5,
+    wasteManagement: 2,
+  },
+  {
+    country: "United Kingdom",
+    energyProduction: 58,
+    transportation: 26,
+    industry: 10,
+    agriculture: 4,
+    wasteManagement: 2,
+  },
+  {
+    country: "Australia",
+    energyProduction: 65,
+    transportation: 20,
+    industry: 10,
+    agriculture: 3,
+    wasteManagement: 2,
+  },
+  {
+    country: "South Africa",
+    energyProduction: 75,
+    transportation: 10,
+    industry: 10,
+    agriculture: 3,
+    wasteManagement: 2,
+  },
+  {
+    country: "Mexico",
+    energyProduction: 68,
+    transportation: 18,
+    industry: 8,
+    agriculture: 3,
+    wasteManagement: 3,
+  },
+  {
+    country: "Indonesia",
+    energyProduction: 70,
+    transportation: 10,
+    industry: 12,
+    agriculture: 5,
+    wasteManagement: 3,
+  },
+  {
+    country: "Saudi Arabia",
+    energyProduction: 80,
+    transportation: 10,
+    industry: 7,
+    agriculture: 2,
+    wasteManagement: 1,
+  },
+  {
+    country: "Argentina",
+    energyProduction: 65,
+    transportation: 15,
+    industry: 10,
+    agriculture: 7,
+    wasteManagement: 3,
+  }
+];
+
   const [location, setLocation] = useState({ latitude: '', longitude: '' });
   const [error, setError] = useState('');
   const [countryName,setCountryName]=useState('');
@@ -348,6 +459,15 @@ export default function Home() {
     }
   }, []);
 
+ const [footPrintData, setFootPrintDData] = useState(null);
+
+ const [carbonInfo, setCarbonInfo] = useState(null);
+
+ useEffect(() => {
+   const fetchedData = carbonData.find(data => data.country.toLowerCase() === country.toLowerCase());
+   setCarbonInfo(fetchedData);
+ }, [country]); 
+
   return (
     <div className="text-center">
       <div className="text-[1rem] md:text-[2.2rem] text-center w-full my-[1.5rem] md:my-[3rem] m-auto">Uncover the Role of Greenhouse Gases in Your Neighborhood</div>
@@ -363,7 +483,7 @@ export default function Home() {
         ></iframe>
         <div className="flex flex-col gap-[1rem] w-full md:w-[50%] min-h-[12rem] md:h-full">
           <div className="flex flex-row items-center gap-[1rem]">
-            <input value={country} onChange={(e)=>{setCountry(e.target.value)}} className="outline-none h-[3rem] w-[15rem] rounded-[1rem] border border-bink-500 m-[1rem] p-[0.6rem]" type="text" placeholder="Enter country" />
+            <input value={country} onChange={(e)=>{setCountry(e.target.value)}} className="outline-none h-[3rem] text-[#000] w-[15rem] rounded-[1rem] border border-bink-500 m-[1rem] p-[0.6rem]" type="text" placeholder="Enter country" />
             <button onClick={handleSubmit} className="bg-blue-800 text-[#FFF] w-[12rem] h-[3rem] text-center rounded-[1rem]" type="submit">Get Emissions Data</button>
           </div>
           {/* <DoughnutPieChart /> */}
@@ -385,15 +505,24 @@ export default function Home() {
         */}
       {result1 && (
         <div className="mt-[2rem]">
-          <h3>Country: {result1.country}</h3>
+          <h3 className="mb-[1rem] text-xl">Country: {result1.country}</h3>
           <p>Human Resources: {result1.humanResources}%</p>
           <p>Natural Resources: {result1.naturalResources}%</p>
         </div>
       )}
 
+      <div className="my-[2rem]">
+        <h1 className="mb-[1rem] text-xl bg-blue-600 border w-[50%] m-auto p-[1rem] rounded-[1rem]">Carbon Footprint for {carbonInfo?.country}</h1>
+        <p>Energy Production: {carbonInfo?.energyProduction}%</p>
+        <p>Transportation: {carbonInfo?.transportation}%</p>
+        <p>Industry: {carbonInfo?.industry}%</p>
+        <p>Agriculture: {carbonInfo?.agriculture}%</p>
+        <p>Waste Management: {carbonInfo?.wasteManagement}%</p>
+      </div>
+
       {result1&&(
         <div className="w-full mr-auto mt-[3rem] mb-[2rem]">
-          <div className="text-xl mb-[1rem]">Solutions:</div>
+          <div className="mb-[1rem] text-xl bg-blue-600 border w-[50%] m-auto p-[1rem] rounded-[1rem]">Solutions:</div>
           <div>
             {/* <div className="flex flex-">
               <img></img>
@@ -437,6 +566,11 @@ export default function Home() {
         <div className="mb-[1rem]">for more solutions and awarenss</div>
         </>
       )}
+
+
+
+
+      
       {/* <iframe
         src="https://gemini.google.com/"
         width="100%"
